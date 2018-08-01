@@ -1,6 +1,5 @@
 import React                        from 'react';
 import { StyleSheet, View }         from 'react-native';
-import { AsyncStorage }             from 'react-native';
 
 import Constants                    from '../../utilities/Constants';
 import Backend                      from '../../backend/Backend';
@@ -11,9 +10,8 @@ import Button                       from '../../components/Button';
 export default class LoginScreen extends React.Component {
   render() {
     const loginCallback = (userCredential) => {
+      Backend.createUserIfNotCreated();
       this.props.navigation.navigate('App');
-      const userToken = userCredential.additionalUserInfo.profile.id;
-      AsyncStorage.setItem('UserToken', userToken);
     };
 
     return (

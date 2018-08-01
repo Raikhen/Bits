@@ -1,4 +1,5 @@
 import Expo             from 'expo';
+import { AsyncStorage } from 'react-native';
 
 const firebase = require("firebase");
 require("firebase/firestore");
@@ -25,7 +26,10 @@ class Firebase {
   handleAuthChanges() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
-        console.log('We are authenticated now!');
+        const userToken = user.providerData[0].uid;
+        AsyncStorage.setItem('UserToken', userToken);
+      } else {
+        AsyncStorage.setItem('UserToken', null);
       }
     });
   }
@@ -47,6 +51,32 @@ class Firebase {
     } else {
       console.error('User or Facebook cancelled login.');
     }
+  }
+
+  async createUserIfNotCreated() {
+    const db = firebase.firestore();
+    const { uid } = firebase.auth().currentUser;
+
+    db.collection('users').where('uid', "==", uid).get()
+    .then((querySnapshot) => {
+      if (!querySnapshot.size) {
+        db.collection('users').add({
+          uid,
+          bitpoints: 0
+        })
+        .then((doc) => {
+          console.log(`User doc created successfully with id ${doc.id}.`);
+        })
+        .catch((error) => {
+          console.error('Error adding document: ', error);
+        });
+      } else {
+        console.log('User already created');
+      }
+    })
+    .catch((error) => {
+      console.log('Error getting documents: ', error);
+    });
   }
 }
 
