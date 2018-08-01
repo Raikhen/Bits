@@ -1,7 +1,9 @@
-import Expo from 'expo';
+import Expo             from 'expo';
 
 const firebase = require("firebase");
 require("firebase/firestore");
+
+console.disableYellowBox = true;
 
 class Firebase {
   constructor() {
@@ -17,14 +19,18 @@ class Firebase {
     firebase.initializeApp(firebaseConfig);
     firebase.firestore().settings({ timestampsInSnapshots: true });
 
+    this.handleAuthChanges();
+  }
+
+  handleAuthChanges() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
-        console.log("We are authenticated now!");
+        console.log('We are authenticated now!');
       }
     });
   }
 
-  async loginWithFacebook() {
+  async loginWithFacebook(callback) {
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
       '2128445640726376',
       {
@@ -33,22 +39,13 @@ class Firebase {
     );
 
     if (type === 'success') {
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`
-      );
-
-      console.log(
-        'Logged in!',
-        `Hi ${(await response.json()).name}!`,
-      );
-
-      // Build Firebase credential with the Facebook access token.
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-      // Sign in with credential from the Facebook user.
-      firebase.auth().signInWithCredential(credential).catch((error) => {
-        // Handle Errors here.
-      });
+      firebase.auth().signInAndRetrieveDataWithCredential(credential)
+      .then(callback)
+      .catch(error => console.error(error));
+    } else {
+      console.error('User or Facebook cancelled login.');
     }
   }
 }

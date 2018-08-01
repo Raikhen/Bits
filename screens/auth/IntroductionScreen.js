@@ -1,11 +1,17 @@
 import React                        from 'react';
 import { StyleSheet, Text, View }   from 'react-native';
+import { AsyncStorage }             from 'react-native';
 import AppIntroSlider               from 'react-native-app-intro-slider';
 
 import Constants                    from '../../utilities/Constants';
 
 export default class IntroductionScreen extends React.Component {
   render() {
+    const handleDone = () => {
+      AsyncStorage.setItem('FinishedIntroduction', 'true');
+      this.props.navigation.navigate('Login');
+    };
+
     return (
       <AppIntroSlider
         slides={slides}
@@ -13,7 +19,7 @@ export default class IntroductionScreen extends React.Component {
         activeDotStyle={styles.activeDotStyle}
         buttonStyle={styles.buttonStyle}
         buttonTextStyle={styles.buttonTextStyle}
-        onDone={() => this.props.navigation.navigate('Login')} />
+        onDone={handleDone} />
     );
   }
 }

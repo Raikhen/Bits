@@ -1,9 +1,6 @@
 import React                  from 'react';
-import { ActivityIndicator }  from 'react-native';
 import { AsyncStorage }       from 'react-native';
 import { StyleSheet }         from 'react-native';
-import { View }               from 'react-native';
-import { Text }               from 'react-native';
 
 import loadAssets             from '../utilities/loadAssets';
 import LoadingBoxes           from '../components/LoadingBoxes';
@@ -21,8 +18,12 @@ export default class AppLoadingScreen extends React.Component {
   }
 
   async redirect() {
-    const userToken = await AsyncStorage.getItem('BitsUser');
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    const { navigate } = this.props.navigation;
+    const finishedIntro = await AsyncStorage.getItem('FinishedIntroduction');
+    const userToken = await AsyncStorage.getItem('UserToken');
+
+    if (!finishedIntro) navigate('Auth');
+    else navigate(userToken ? 'App' : 'Login');
   }
 
   render() {
