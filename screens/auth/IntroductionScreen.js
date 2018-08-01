@@ -4,6 +4,20 @@ import AppIntroSlider               from 'react-native-app-intro-slider';
 
 import Constants                    from '../../utilities/Constants';
 
+export default class IntroductionScreen extends React.Component {
+  render() {
+    return (
+      <AppIntroSlider
+        slides={slides}
+        dotStyle={styles.dotStyle}
+        activeDotStyle={styles.activeDotStyle}
+        buttonStyle={styles.buttonStyle}
+        buttonTextStyle={styles.buttonTextStyle}
+        onDone={() => this.props.navigation.navigate('Login')} />
+    );
+  }
+}
+
 const styles = StyleSheet.create({
   slideImage: {
     width: 100,
@@ -66,17 +80,3 @@ const slides = [
     backgroundColor: 'black',
   }
 ];
-
-export default class IntroductionScreen extends React.Component {
-  render() {
-    return (
-      <AppIntroSlider
-        slides={slides}
-        dotStyle={styles.dotStyle}
-        activeDotStyle={styles.activeDotStyle}
-        buttonStyle={styles.buttonStyle}
-        buttonTextStyle={styles.buttonTextStyle}
-        onDone={() => this.props.navigation.navigate('PhoneNumberForm')} />
-    );
-  }
-}

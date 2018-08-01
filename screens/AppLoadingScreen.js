@@ -5,7 +5,7 @@ import { StyleSheet }         from 'react-native';
 import { View }               from 'react-native';
 import { Text }               from 'react-native';
 
-import loadAssets             from '../utilities/LoadAssets';
+import loadAssets             from '../utilities/loadAssets';
 import LoadingBoxes           from '../components/LoadingBoxes';
 
 export default class AppLoadingScreen extends React.Component {
