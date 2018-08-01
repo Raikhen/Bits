@@ -7,6 +7,7 @@ import { Text }               from 'react-native';
 
 import loadAssets             from '../utilities/loadAssets';
 import LoadingBoxes           from '../components/LoadingBoxes';
+import Screen                 from '../components/Screen';
 
 export default class AppLoadingScreen extends React.Component {
   async componentWillMount() {
@@ -26,18 +27,16 @@ export default class AppLoadingScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Screen style={styles.container}>
         <LoadingBoxes boxSize={30} />
-      </View>
+      </Screen>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000'
+    alignItems: 'center'
   }
 });
