@@ -2,6 +2,7 @@ import React                        from 'react';
 import { StyleSheet }               from 'react-native';
 import { MaterialCommunityIcons }   from '@expo/vector-icons';
 
+import getUserFriends               from '../../backend/getUserFriends';
 import Constants                    from '../../utilities/Constants';
 import Screen                       from '../../components/Screen';
 import Button                       from '../../components/Button';
@@ -17,6 +18,10 @@ export default class PeopleScreen extends React.Component {
         color={Constants.styling.colors.primary} />
     )
   };
+
+  async componentWillMount() {
+    console.log(await getUserFriends());
+  }
 
   render() {
     return (

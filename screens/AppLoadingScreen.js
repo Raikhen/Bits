@@ -20,10 +20,10 @@ export default class AppLoadingScreen extends React.Component {
   async redirect() {
     const { navigate } = this.props.navigation;
     const finishedIntro = await AsyncStorage.getItem('FinishedIntroduction');
-    const userToken = await AsyncStorage.getItem('UserToken');
+    const isUserLogged = await AsyncStorage.getItem('FacebookUserID');
 
     if (!finishedIntro) navigate('Auth');
-    else navigate(userToken ? 'App' : 'Login');
+    else navigate(isUserLogged ? 'App' : 'Login');
   }
 
   render() {

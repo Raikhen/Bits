@@ -2,7 +2,7 @@ import React                        from 'react';
 import { StyleSheet, View }         from 'react-native';
 
 import Constants                    from '../../utilities/Constants';
-import Backend                      from '../../backend/Backend';
+import loginWithFacebook            from '../../backend/loginWithFacebook';
 import Screen                       from '../../components/Screen';
 import BitsText                     from '../../components/BitsText';
 import Button                       from '../../components/Button';
@@ -10,7 +10,6 @@ import Button                       from '../../components/Button';
 export default class LoginScreen extends React.Component {
   render() {
     const loginCallback = (userCredential) => {
-      Backend.createUserIfNotCreated();
       this.props.navigation.navigate('App');
     };
 
@@ -23,7 +22,7 @@ export default class LoginScreen extends React.Component {
           <Button
             icon="facebook"
             text="Login with Facebook"
-            onPress={() => Backend.loginWithFacebook(loginCallback)} />
+            onPress={() => loginWithFacebook(loginCallback)} />
         </View>
         <View style={styles.smallContainer}>
           <BitsText style={styles.text}>
