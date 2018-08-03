@@ -8,7 +8,8 @@ Constants.styling.colors = {
   primary: 'lime',
   secondary: 'green',
   tertiary: 'black',
-  quaternary: '#002400'
+  quaternary: '#002400',
+  quinary: '#004800'
 };
 
 Constants.styling.text = {
