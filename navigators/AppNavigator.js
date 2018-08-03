@@ -1,18 +1,56 @@
+import React                        from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
+import { MaterialCommunityIcons }   from '@expo/vector-icons';
 
-import PeopleScreen                 from '../screens/app/PeopleScreen';
-import ChatsScreen                  from '../screens/app/ChatsScreen';
-import ProfileScreen                from '../screens/app/ProfileScreen';
+import PeopleNavigator              from './PeopleNavigator';
+import ChatsNavigator               from './ChatsNavigator';
+import ProfileNavigator             from './ProfileNavigator';
 import Constants                    from '../utilities/Constants';
 
 export default createBottomTabNavigator(
   {
-    People: PeopleScreen,
-    Chats: ChatsScreen,
-    Profile: ProfileScreen
+    PeopleNavigator: {
+      screen: PeopleNavigator,
+      navigationOptions: {
+        title: 'People',
+        tabBarIcon: (
+          <MaterialCommunityIcons
+            name="account-multiple"
+            style={{ marginBottom: -2 }}
+            size={32}
+            color={Constants.styling.colors.primary} />
+        )
+      }
+    },
+    ChatsNavigator: {
+      screen: ChatsNavigator,
+      navigationOptions: {
+        title: 'Chats',
+        tabBarIcon: (
+          <MaterialCommunityIcons
+            name="message"
+            style={{ marginBottom: -2 }}
+            size={27}
+            color={Constants.styling.colors.primary} />
+        )
+      }
+    },
+    ProfileNavigator: {
+      screen: ProfileNavigator,
+      navigationOptions: {
+        title: 'Profile',
+        tabBarIcon: (
+          <MaterialCommunityIcons
+            name="emoticon-cool"
+            style={{ marginBottom: -2 }}
+            size={27}
+            color={Constants.styling.colors.primary} />
+        )
+      }
+    }
   },
   {
-    initialRouteName: 'People',
+    initialRouteName: 'PeopleNavigator',
     tabBarOptions: {
       activeTintColor: Constants.styling.colors.primary,
       inactiveTintColor: Constants.styling.colors.secondary,
