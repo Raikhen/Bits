@@ -2,17 +2,17 @@ import React                        from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import { MaterialCommunityIcons }   from '@expo/vector-icons';
 
-import PeopleNavigator              from './PeopleNavigator';
+import FriendsNavigator              from './FriendsNavigator';
 import ChatsNavigator               from './ChatsNavigator';
 import ProfileNavigator             from './ProfileNavigator';
 import Constants                    from '../utilities/Constants';
 
 export default createBottomTabNavigator(
   {
-    PeopleNavigator: {
-      screen: PeopleNavigator,
+    FriendsNavigator: {
+      screen: FriendsNavigator,
       navigationOptions: {
-        title: 'People',
+        title: 'Friends',
         tabBarIcon: (
           <MaterialCommunityIcons
             name="account-multiple"
@@ -50,11 +50,11 @@ export default createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'PeopleNavigator',
+    initialRouteName: 'FriendsNavigator',
     tabBarOptions: {
       activeTintColor: Constants.styling.colors.primary,
       inactiveTintColor: Constants.styling.colors.secondary,
-      activeBackgroundColor: '#002400',
+      activeBackgroundColor: Constants.styling.colors.quaternary,
       inactiveBackgroundColor: Constants.styling.colors.tertiary,
       labelStyle: {
         ...Constants.styling.text,

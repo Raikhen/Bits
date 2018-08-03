@@ -1,12 +1,17 @@
 import { createStackNavigator }   from 'react-navigation';
 
-import ProfileScreen                from '../screens/app/ProfileScreen';
+import Constants                  from '../utilities/Constants';
+import ProfileScreen              from '../screens/app/ProfileScreen';
 
 export default createStackNavigator(
   {
     Profile: ProfileScreen
   },
   {
-    initialRouteName: 'Profile'
+    initialRouteName: 'Profile',
+    navigationOptions: {
+      headerStyle: Constants.styling.headerStyle,
+      headerTitleStyle: Constants.styling.headerTitleStyle
+    }
   }
 );

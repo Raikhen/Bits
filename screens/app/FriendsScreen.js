@@ -7,9 +7,12 @@ import Constants                    from '../../utilities/Constants';
 import Screen                       from '../../components/Screen';
 import Button                       from '../../components/Button';
 import BitsText                     from '../../components/BitsText';
-import LoadingBoxes                 from '../../components/LoadingBoxes';
 
-export default class PeopleScreen extends React.Component {
+export default class FriendsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Friends',
+  };
+
   constructor(props) {
     super(props);
 
@@ -26,11 +29,10 @@ export default class PeopleScreen extends React.Component {
 
   render() {
     return (
-      <Screen tabBarLabel="People">
+      <Screen>
         <FlatList
           data={[{key: 'a'}, {key: 'b'}]}
           renderItem={({item}) => <BitsText>{item.key}</BitsText>} />
-        <BitsText>PeopleScreen</BitsText>
       </Screen>
     );
   }

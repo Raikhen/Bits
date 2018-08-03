@@ -7,6 +7,10 @@ import Button                       from '../../components/Button';
 import BitsText                     from '../../components/BitsText';
 
 export default class ChatsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Chats'
+  }
+
   render() {
     return (
       <Screen>
