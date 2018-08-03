@@ -1,4 +1,5 @@
 import React                        from 'react';
+import { TouchableOpacity }         from 'react-native';
 import { StyleSheet }               from 'react-native';
 import { Image }                    from 'react-native';
 import { View }                     from 'react-native';
@@ -9,10 +10,23 @@ import BitsText                     from './BitsText';
 
 export default class FriendItem extends React.Component {
   render() {
-    const { picture, name } = this.props;
+    const { id, picture, name, navigation } = this.props;
+
+    const onPress = () => {
+      navigation.navigate(
+        'Messaging',
+        {
+          userId: id,
+          userPicture: picture,
+          userName: name
+        }
+      );
+    };
 
     return (
-      <View style={styles.listItem}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={styles.listItem}>
         <View style={styles.listItemPictureContainer}>
           <Image
             source={{ uri: picture.data.url }}
@@ -21,7 +35,7 @@ export default class FriendItem extends React.Component {
         <BitsText style={styles.listItemText}>
           {name}
         </BitsText>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

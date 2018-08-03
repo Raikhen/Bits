@@ -1,14 +1,9 @@
 import React                        from 'react';
 import { StyleSheet }               from 'react-native';
 import { FlatList }                 from 'react-native';
-import { Image }                    from 'react-native';
-import { View }                     from 'react-native';
 
 import getUserFriends               from '../../backend/getUserFriends';
-import Constants                    from '../../utilities/Constants';
 import Screen                       from '../../components/Screen';
-import Button                       from '../../components/Button';
-import BitsText                     from '../../components/BitsText';
 import FriendItem                   from '../../components/FriendItem';
 
 export default class FriendsScreen extends React.Component {
@@ -31,11 +26,20 @@ export default class FriendsScreen extends React.Component {
   }
 
   render() {
+    const renderItem = ({ item }) => {
+      return (
+        <FriendItem
+          key={item.id}
+          {...item}
+          navigation={this.props.navigation} />
+      );
+    };
+
     return (
       <Screen>
         <FlatList
           data={this.state.friends}
-          renderItem={({ item }) => <FriendItem key={item.id} {...item} />} />
+          renderItem={renderItem} />
       </Screen>
     );
   }

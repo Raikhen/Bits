@@ -4,16 +4,19 @@ import { createStackNavigator }   from 'react-navigation';
 
 import Constants                  from '../utilities/Constants';
 import FriendsScreen              from '../screens/app/FriendsScreen';
+import MessagingScreen            from '../screens/app/MessagingScreen';
 
 export default createStackNavigator(
   {
-    Friends: FriendsScreen
+    Friends: FriendsScreen,
+    Messaging: MessagingScreen
   },
   {
     initialRouteName: 'Friends',
     navigationOptions: {
       headerStyle: Constants.styling.headerStyle,
-      headerTitleStyle: Constants.styling.headerTitleStyle
+      headerTitleStyle: Constants.styling.headerTitleStyle,
+      headerTintColor: Constants.styling.colors.primary
     }
   }
 );
