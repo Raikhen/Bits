@@ -13,9 +13,16 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <Screen>
-        <BitsText>ProfileScreen</BitsText>
+      <Screen style={styles.screen}>
+        <BitsText>Hello, World!</BitsText>
       </Screen>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
