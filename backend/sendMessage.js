@@ -1,11 +1,9 @@
 import firebase from './firebase';
 
 export default sendMessage = async (content, recipientFacebookID) => {
-  console.log('sending message');
-
   return new Promise((resolve, reject) => {
     const senderFirebaseID = firebase.auth().currentUser.uid;
-    
+
     firebase.firestore().collection('messages').add({
       content,
       senderFirebaseID,
