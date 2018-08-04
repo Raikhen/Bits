@@ -7,7 +7,8 @@ export default sendMessage = async (content, recipientFacebookID) => {
     firebase.firestore().collection('messages').add({
       content,
       senderFirebaseID,
-      recipientFacebookID
+      recipientFacebookID,
+      timestamp: new Date()
     })
     .then((docRef) => {
       resolve({
