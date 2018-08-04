@@ -8,6 +8,6 @@ const loadFonts = () => {
   return fonts.map((font) => Font.loadAsync(font));
 };
 
-export default function loadAssets() {
+export default loadAssets = () => {
   return Promise.all([...loadFonts()]);
 }

@@ -8,6 +8,7 @@ import Constants                    from '../../utilities/Constants';
 import Screen                       from '../../components/Screen';
 import BitsText                     from '../../components/BitsText';
 import Message                      from '../../components/Message';
+import sendMessage                  from '../../backend/sendMessage';
 
 export default class MessagingScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -21,14 +22,17 @@ export default class MessagingScreen extends React.Component {
   state = {
     messages: [
       {
+        id: '0',
         content: 1,
         type: 'received'
       },
       {
+        id: '1',
         content: 1,
         type: 'sent'
       },
       {
+        id: '2',
         content: 0,
         type: 'received'
       }
@@ -36,21 +40,28 @@ export default class MessagingScreen extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
+    const { userName, userId, userPicture } = navigation.state.params;
+
     return (
       <Screen>
         <FlatList
           data={this.state.messages}
-          renderItem={({ index, item }) => <Message key={index} {...item} />}
+          renderItem={({ item }) => <Message key={item.id} {...item} />}
           style={styles.messagesContainer}
           ListFooterComponent={<View style={{ height: 15 }}></View>} />
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            onPress={() => sendMessage(0, userId)}
+            style={styles.button}>
             <BitsText style={styles.buttonText}>
               0
             </BitsText>
           </TouchableOpacity>
           <View style={styles.separatingLine}></View>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            onPress={() => sendMessage(1, userId)}
+            style={styles.button}>
             <BitsText style={styles.buttonText}>
               1
             </BitsText>
@@ -76,8 +87,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     borderColor: Constants.styling.colors.primary,
-    alignItems: 'center',
-    textAlign: 'center'
+    alignItems: 'center'
   },
   buttonText: {
     ...Constants.styling.text,

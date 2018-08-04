@@ -11,7 +11,7 @@ export default class LoadingBoxes extends React.Component {
     loadingPhase: 0,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     interval = setInterval(() => {
       this.setState({
         loadingPhase: (this.state.loadingPhase + 1) % 4
