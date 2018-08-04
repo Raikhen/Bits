@@ -11,13 +11,9 @@ export default class FriendsScreen extends React.Component {
     title: 'Friends',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      friends: []
-    };
-  }
+  state = {
+    friends: []
+  };
 
   async componentWillMount() {
     const friends = await getUserFriends();

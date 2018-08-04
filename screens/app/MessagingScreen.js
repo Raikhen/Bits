@@ -18,26 +18,22 @@ export default class MessagingScreen extends React.Component {
     };
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      messages: [
-        {
-          content: 1,
-          type: 'received'
-        },
-        {
-          content: 1,
-          type: 'sent'
-        },
-        {
-          content: 0,
-          type: 'received'
-        }
-      ]
-    };
-  }
+  state = {
+    messages: [
+      {
+        content: 1,
+        type: 'received'
+      },
+      {
+        content: 1,
+        type: 'sent'
+      },
+      {
+        content: 0,
+        type: 'received'
+      }
+    ]
+  };
 
   render() {
     return (
