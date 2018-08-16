@@ -25,7 +25,6 @@ export default class Message extends React.Component {
 
 const styles = StyleSheet.create({
   message: {
-    textAlign: 'center',
     width: 50,
     height: 50,
     borderWidth: 3,

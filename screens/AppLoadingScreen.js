@@ -2,7 +2,7 @@ import React                  from 'react';
 import { AsyncStorage }       from 'react-native';
 import { StyleSheet }         from 'react-native';
 
-import loadAssets             from '../utilities/loadAssets';
+import loadAssets             from '../utilities/LoadAssets';
 import LoadingBoxes           from '../components/LoadingBoxes';
 import Screen                 from '../components/Screen';
 
