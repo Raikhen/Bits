@@ -21,6 +21,11 @@
     "react-native-dropdown": "git+https://github.com/g6ling/react-native-dropdown.git",
     "react-native-picker-dropdown": "^0.1.1",
     "react-navigation": "^2.9.3",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "twilio": "^3.18.0"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.4.1"
   }
 }

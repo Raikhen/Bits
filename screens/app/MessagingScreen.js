@@ -1,4 +1,5 @@
 import React                        from 'react';
+import { connect }                  from 'react-redux';
 import { TouchableOpacity }         from 'react-native';
 import { StyleSheet }               from 'react-native';
 import { FlatList }                 from 'react-native';
@@ -9,8 +10,15 @@ import Screen                       from '../../components/Screen';
 import BitsText                     from '../../components/BitsText';
 import Message                      from '../../components/Message';
 import sendMessage                  from '../../backend/sendMessage';
+//import onMessagesArrival            from '../../backend/onMessagesArrival';
 
-export default class MessagingScreen extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+
+  };
+}
+
+class MessagingScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
 
@@ -20,24 +28,28 @@ export default class MessagingScreen extends React.Component {
   };
 
   state = {
-    messages: [
-      {
-        id: '0',
-        content: 1,
-        type: 'received'
-      },
-      {
-        id: '1',
-        content: 1,
-        type: 'sent'
-      },
-      {
-        id: '2',
-        content: 0,
-        type: 'received'
-      }
-    ]
+    messages: []
   };
+
+  componentDidMount() {
+    const { params } = this.props.navigation.state;
+
+    const otherUser = {
+      facebookID: params.userId,
+      name: params.userName,
+      picture: params.userPicture
+    };
+
+    const callback = (messages) => {
+      console.log('messages:', messages);
+
+      this.setState({
+        messages
+      });
+    };
+
+    //onMessagesArrival(otherUser, callback);
+  }
 
   render() {
     const { navigation } = this.props;
@@ -99,3 +111,5 @@ const styles = StyleSheet.create({
     backgroundColor: Constants.styling.colors.primary
   }
 });
+
+export default connect(mapStateToProps)(MessagingScreen);
