@@ -9,7 +9,6 @@ import FriendItem                   from '../../components/FriendItem';
 
 const mapStateToProps = (state) => {
   return {
-    selectedFriendFacebookID: state.selectedFriendFacebookID,
     friends: state.friends
   }
 };

@@ -10,13 +10,24 @@ import Screen                       from '../../components/Screen';
 import BitsText                     from '../../components/BitsText';
 import Message                      from '../../components/Message';
 import sendMessage                  from '../../backend/sendMessage';
-//import onMessagesArrival            from '../../backend/onMessagesArrival';
+import onMessagesArrival            from '../../backend/onMessagesArrival';
 
 const mapStateToProps = (state) => {
-  return {
+  const { friends, facebookID } = state;
+  const { messages } = friends.filter((f) => f.id == facebookID)[0];
+  return { messages };
+};
 
-  };
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMessage: (message) => {
+      dispatch({
+        message,
+        type: 'ADD_MESSAGE'
+      });
+    }
+  }
+};
 
 class MessagingScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -25,10 +36,6 @@ class MessagingScreen extends React.Component {
     return {
       title: params.userName
     };
-  };
-
-  state = {
-    messages: []
   };
 
   componentDidMount() {
@@ -41,14 +48,10 @@ class MessagingScreen extends React.Component {
     };
 
     const callback = (messages) => {
-      console.log('messages:', messages);
-
-      this.setState({
-        messages
-      });
+      messages.forEach((message) => this.props.addMessage(message));
     };
 
-    //onMessagesArrival(otherUser, callback);
+    onMessagesArrival(otherUser, callback);
   }
 
   render() {
@@ -58,7 +61,7 @@ class MessagingScreen extends React.Component {
     return (
       <Screen>
         <FlatList
-          data={this.state.messages}
+          data={this.props.messages}
           renderItem={({ item }) => <Message key={item.id} {...item} />}
           style={styles.messagesContainer}
           ListFooterComponent={<View style={{ height: 15 }}></View>} />
@@ -112,4 +115,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(MessagingScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MessagingScreen);

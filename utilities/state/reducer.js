@@ -7,7 +7,7 @@ const reducer = (state = initialState, action) => {
   const actions = {
     'SELECT_FRIEND': () => ({
       ...state,
-      selectedFriendFacebookID: action.facebookID
+      facebookID: action.facebookID
     }),
     'ADD_FRIENDS': () => ({
       ...state,
@@ -21,24 +21,25 @@ const reducer = (state = initialState, action) => {
       action: {
         type: 'ADD_MESSAGE',
         message: {
+          id: 'asdasd'
           content: 1,
-          sent: true,
-          facebookID: ''
+          sent: true
         }
       }
       */
 
-      let newState = { ...state };
+      console.log('new messages:', [
+        //...state.messages,
+        action.message
+      ]);
 
-      /*
-      let friend = newState.friends.filter((friend) => {
-        return friend.facebookID == action.facebookID
-      })[0];
-
-      friend.messages.push();
-      */
-
-      return newState;
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.message
+        ]
+      };
     }
   };
 

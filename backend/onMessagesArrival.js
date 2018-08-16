@@ -8,33 +8,69 @@ export default onMessagesArrival = async (otherUser, callback) => {
   const user = auth.currentUser;
   otherUser.firebaseID = await getFirebaseUserID(otherUser.facebookID);
 
-  const messagesSent = await new Promise((resolve, reject) => {
+  let messagesSent = await new Promise((resolve, reject) => {
     db.collection('messages')
     .where('senderFirebaseID', '==', user.uid)
     .where('recipientFacebookID', '==', otherUser.facebookID)
-    .onSnapshot((querySnapshot) => {
-      let messagesSent = [];
-      querySnapshot.forEach((doc) => messagesSent.push(doc.data()));
-      resolve(messagesSent);
+    .onSnapshot((snapshot) => {
+      let result = [];
+
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          const data = change.doc.data();
+
+          result.push({
+            content: data.content,
+            timestamp: data.timestamp,
+            sent: true
+          });
+        }
+      });
+
+      resolve(result);
     });
   });
 
-  const messagesReceived = await new Promise((resolve, reject) => {
+  let messagesReceived = await new Promise((resolve, reject) => {
     db.collection('messages')
     .where('senderFirebaseID', '==', otherUser.firebaseID)
     .where('recipientFacebookID', '==', user.providerData[0].uid)
-    .onSnapshot((querySnapshot) => {
-      let messagesReceived = [];
-      querySnapshot.forEach((doc) => messagesReceived.push(doc.data()));
-      resolve(messagesSent);
+    .onSnapshot((snapshot) => {
+      let result = [];
+
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          const data = change.doc.data();
+
+          result.push({
+            content: data.content,
+            timestamp: data.timestamp,
+            sent: true
+          });
+        }
+      });
+
+      resolve(result);
     });
   });
 
   // TODO: Fix bug that messagesSent == messagesReceived.
 
-  console.log('messagesSent:', messagesSent);
-  console.log('messagesReceived:', messagesReceived);
+  let messages = [
+    ...messagesSent,
+    ...messagesReceived
+  ];
+
+  messages.sort((a,b) => {
+    const secondsDiff = b.timestamp.seconds - a.timestamp.seconds;
+
+    if (secondsDiff == 0) {
+      return b.timestamp.nanoseconds - a.timestamp.nanoseconds;
+    } else {
+      return secondsDiff;
+    }
+  });
 
   // TODO: Make this realtime.
-  callback([...messagesSent, ...messagesReceived]); // TODO: Sort by timestamp.
+  callback(messages);
 }
