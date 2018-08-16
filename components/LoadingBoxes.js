@@ -4,34 +4,23 @@ import { View }               from 'react-native';
 
 import Constants              from '../utilities/Constants';
 
-let timeout; // TODO: Find a better way to clearTimeout.
+let interval; // TODO: Find a better way to clearInterval.
 
 export default class LoadingBoxes extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    loadingPhase: 0,
+  };
 
-    this.state = {
-      loadingPhase: 0,
-    }
-
-    this.changePhase = this.changePhase.bind(this);
-    this.changePhase();
-  }
-
-  changePhase() {
-    let self = this;
-
-    timeout = setTimeout(() => {
-      self.setState({
-        loadingPhase: (self.state.loadingPhase + 1) % 4
+  componentDidMount() {
+    interval = setInterval(() => {
+      this.setState({
+        loadingPhase: (this.state.loadingPhase + 1) % 4
       });
-
-      self.changePhase();
-    }, 500);
+    }, 200);
   }
 
   componentWillUnmount() {
-    clearTimeout(timeout);
+    clearInterval(interval);
   }
 
   render() {

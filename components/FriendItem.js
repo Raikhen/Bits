@@ -1,4 +1,5 @@
 import React                        from 'react';
+import { connect }                  from 'react-redux';
 import { TouchableOpacity }         from 'react-native';
 import { StyleSheet }               from 'react-native';
 import { Image }                    from 'react-native';
@@ -8,11 +9,24 @@ import Constants                    from '../utilities/Constants';
 import Screen                       from './Screen';
 import BitsText                     from './BitsText';
 
-export default class FriendItem extends React.Component {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectFriend: (facebookID) => {
+      dispatch({
+        facebookID,
+        type: 'SELECT_FRIEND'
+      })
+    }
+  }
+};
+
+class FriendItem extends React.Component {
   render() {
     const { id, picture, name, navigation } = this.props;
 
     const onPress = () => {
+      this.props.selectFriend(id);
+
       navigation.navigate(
         'Messaging',
         {
@@ -39,6 +53,8 @@ export default class FriendItem extends React.Component {
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(FriendItem);
 
 const styles = StyleSheet.create({
   listItem: {
